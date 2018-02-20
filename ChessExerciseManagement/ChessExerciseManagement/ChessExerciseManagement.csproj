@@ -69,6 +69,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pieces\Bishop.cs" />
+    <Compile Include="Models\Board.cs" />
+    <Compile Include="Models\Field.cs" />
+    <Compile Include="Pieces\King.cs" />
+    <Compile Include="Pieces\Knight.cs" />
+    <Compile Include="Pieces\Moves.cs" />
+    <Compile Include="Pieces\Pawn.cs" />
+    <Compile Include="Pieces\Piece.cs" />
+    <Compile Include="Models\PlayerAffiliation.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Pieces\Queen.cs" />
+    <Compile Include="Pieces\Rook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
