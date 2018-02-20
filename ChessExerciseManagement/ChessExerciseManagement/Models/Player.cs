@@ -55,7 +55,7 @@ namespace ChessExerciseManagement.Models {
             var list = new List<Field>();
 
             foreach (var piece in Pieces) {
-                list.AddRange(piece.GetAccessibleFields(Board));
+                list.AddRange(piece.GetAccessibleFields());
             }
 
             return list;

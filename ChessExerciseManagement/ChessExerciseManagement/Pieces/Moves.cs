@@ -23,13 +23,20 @@ namespace ChessExerciseManagement.Pieces {
                 }
 
                 var dX = x - 1;
-                if (dX >= 0 && fields[dX, dY]?.Piece.Affiliation != affiliation) {
-                    list.Add(fields[dX, dY]);
+
+                if (dX >= 0 && dX < board.Width) {
+                    var nPiece = fields[dX, nY].Piece;
+                    if (nPiece != null && nPiece.Affiliation != affiliation) {
+                        list.Add(fields[dX, nY]);
+                    }
                 }
 
                 dX = x + 1;
-                if (dX < board.Width && fields[dX, dY]?.Piece.Affiliation != affiliation) {
-                    list.Add(fields[dX, dY]);
+                if (dX >= 0 && dX < board.Width) {
+                    var nPiece = fields[dX, nY].Piece;
+                    if (nPiece != null && nPiece.Affiliation != affiliation) {
+                        list.Add(fields[dX, nY]);
+                    }
                 }
             }
 
@@ -160,7 +167,7 @@ namespace ChessExerciseManagement.Pieces {
             var x = field.X;
             var y = field.Y;
 
-            for (int i = x + 1, j = y + 1; x < board.Width && y < board.Height; x++, y++) {
+            for (int i = x + 1, j = y + 1; i < board.Width && j < board.Height; i++, j++) {
                 var nField = fields[i, j];
                 var nPiece = nField.Piece;
 
@@ -176,7 +183,7 @@ namespace ChessExerciseManagement.Pieces {
                 break;
             }
 
-            for (int i = x - 1, j = y - 1; x >= 0 && y >= 0; x--, y--) {
+            for (int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
                 var nField = fields[i, j];
                 var nPiece = nField.Piece;
 
@@ -192,7 +199,7 @@ namespace ChessExerciseManagement.Pieces {
                 break;
             }
 
-            for (int i = x + 1, j = y - 1; x < board.Width && y >= 0; x++, y--) {
+            for (int i = x + 1, j = y - 1; i < board.Width && j >= 0; i++, j--) {
                 var nField = fields[i, j];
                 var nPiece = nField.Piece;
 
@@ -208,7 +215,7 @@ namespace ChessExerciseManagement.Pieces {
                 break;
             }
 
-            for (int i = x - 1, j = y + 1; x >= 0 && y < board.Height; x--, y++) {
+            for (int i = x - 1, j = y + 1; i >= 0 && j < board.Height; i--, j++) {
                 var nField = fields[i, j];
                 var nPiece = nField.Piece;
 
@@ -267,23 +274,42 @@ namespace ChessExerciseManagement.Pieces {
                 return list;
             }
 
-            var rooks = player.Pieces.Where(p => p is Rook && p.MoveCounter == 0);
+            var rooks = player.Pieces.Where(p => p is Rook);
 
             foreach (var rook in rooks) {
+                if (rook.MoveCounter != 0) {
+                    continue;
+                }
+
                 var rX = rook.Field.X;
                 var rY = rook.Field.Y;
 
                 if (rX == 0) {
-                    if (!(attackedFields.Contains(field)
-                        || attackedFields.Contains(fields[x - 1, y])
-                        || attackedFields.Contains(fields[x - 2, y]))) {
-                        list.Add(fields[x - 2, y]);
+
+                    var field1 = field;
+                    var field2 = fields[x - 1, y];
+                    var field3 = fields[x - 2, y];
+
+                    if (!(attackedFields.Contains(field1)
+                        || attackedFields.Contains(field2)
+                        || attackedFields.Contains(field3))) {
+
+                        if (field2.Piece == null && field3.Piece == null) {
+                            list.Add(field3);
+                        }
                     }
                 } else if (rX == board.Width - 1) {
-                    if (!(attackedFields.Contains(field)
-                        || attackedFields.Contains(fields[x + 1, y])
-                        || attackedFields.Contains(fields[x + 2, y]))) {
-                        list.Add(fields[x + 2, y]);
+                    var field1 = field;
+                    var field2 = fields[x + 1, y];
+                    var field3 = fields[x + 2, y];
+
+                    if (!(attackedFields.Contains(field1)
+                        || attackedFields.Contains(field2)
+                        || attackedFields.Contains(field3))) {
+
+                        if (field2.Piece == null && field3.Piece == null) {
+                            list.Add(field3);
+                        }
                     }
                 }
 
