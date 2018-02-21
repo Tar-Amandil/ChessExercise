@@ -22,6 +22,12 @@ namespace ChessExerciseManagement.UI {
             field.FieldControl = this;
             m_field.MyEvent += M_field_MyEvent;
 
+            if(field.X % 2 == field.Y % 2) {
+                Background = Brushes.AliceBlue;
+            } else {
+                Background = Brushes.RosyBrown;
+            }
+
             imageViewer.Source = field.Piece?.GetImage();
         }
 
