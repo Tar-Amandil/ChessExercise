@@ -8,9 +8,14 @@ namespace ChessExerciseManagement {
             InitializeComponent();
         }
 
-        private void TrainingsButton_Click(object sender, RoutedEventArgs e) {
+        private void TrainingButton_Click(object sender, RoutedEventArgs e) {
             var trainingWindow = new TrainingWindow();
             trainingWindow.ShowDialog();
+        }
+
+        private void FenButton_Click(object sender, RoutedEventArgs e) {
+            var fenWindow = new FenWindow();
+            fenWindow.ShowDialog();
         }
     }
 }

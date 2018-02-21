@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using ChessExerciseManagement.Base;
+using System.Collections.Generic;
 using System.Text;
 
 namespace ChessExerciseManagement.Models {
-    public class Board {
+    public class Board : BaseClass {
         public Field[,] Fields {
             private set;
             get;
@@ -31,7 +32,7 @@ namespace ChessExerciseManagement.Models {
 
             for (var x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    Fields[x, y] = new Field(this, x, y);
+                    Fields[x, y] = new Field(x, y);
                 }
             }
         }
@@ -40,7 +41,7 @@ namespace ChessExerciseManagement.Models {
             Player.Add(player);
         }
 
-        public List<Field> GetAttackedFields(Player player, bool castle = false) {
+        public List<Field> GetAttackedFields(Player player, bool onlyAttacked) {
             var list = new List<Field>();
 
             foreach (var p in Player) {
@@ -48,7 +49,7 @@ namespace ChessExerciseManagement.Models {
                     continue;
                 }
 
-                list.AddRange(p.GetAccessibleFields(castle));
+                list.AddRange(p.GetAccessibleFields(onlyAttacked));
             }
 
             return list;
@@ -77,11 +78,12 @@ namespace ChessExerciseManagement.Models {
                     sb.Append(piece.GetFenChar());
                 }
 
-                if(emptyFieldCounter != 0) {
+                if (emptyFieldCounter != 0) {
                     sb.Append(emptyFieldCounter);
                 }
-
-                sb.Append('/');
+                if (y != 0) {
+                    sb.Append('/');
+                }
             }
             return sb.ToString();
         }

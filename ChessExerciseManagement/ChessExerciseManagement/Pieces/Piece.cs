@@ -1,11 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using ChessExerciseManagement.Models;
 using System.Windows.Media.Imaging;
 
+using ChessExerciseManagement.Base;
+using ChessExerciseManagement.Models;
+using ChessExerciseManagement.Events;
+
 namespace ChessExerciseManagement.Pieces {
-    public abstract class Piece {
+    public abstract class Piece : BaseClass {
+        protected static BitmapImage[] images = new BitmapImage[] {
+            new BitmapImage(new Uri(@"\Images\RookBlack.png", UriKind.Relative)),
+            new BitmapImage(new Uri(@"\Images\RookWhite.png", UriKind.Relative)),
+            new BitmapImage(new Uri(@"\Images\KnightBlack.png", UriKind.Relative)),
+            new BitmapImage(new Uri(@"\Images\KnightWhite.png", UriKind.Relative)),
+            new BitmapImage(new Uri(@"\Images\BishopBlack.png", UriKind.Relative)),
+            new BitmapImage(new Uri(@"\Images\BishopWhite.png", UriKind.Relative)),
+            new BitmapImage(new Uri(@"\Images\QueenBlack.png", UriKind.Relative)),
+            new BitmapImage(new Uri(@"\Images\QueenWhite.png", UriKind.Relative)),
+            new BitmapImage(new Uri(@"\Images\KingBlack.png", UriKind.Relative)),
+            new BitmapImage(new Uri(@"\Images\KingWhite.png", UriKind.Relative)),
+            new BitmapImage(new Uri(@"\Images\PawnBlack.png", UriKind.Relative)),
+            new BitmapImage(new Uri(@"\Images\PawnWhite.png", UriKind.Relative)),
+        };
+
         public PlayerAffiliation Affiliation {
             private set;
             get;
@@ -31,17 +48,14 @@ namespace ChessExerciseManagement.Pieces {
             get;
         }
 
-        private static int ID;
-        private int m_id {
-            set;
-            get;
-        }
+        public event PieceEventHandler AfterMove;
+        public event PieceEventHandler BeforeMove;
+        public delegate void PieceEventHandler(Piece sender, MoveEvent e);
 
         public Piece(Player player, Board board, Field field) {
             if (player == null) {
                 throw new ArgumentNullException("Player must not be null.");
             }
-            m_id = ID++;
             Player = player;
             Affiliation = player.Affiliation;
             Board = board;
@@ -55,20 +69,11 @@ namespace ChessExerciseManagement.Pieces {
         }
 
         public void SetField(Field field, bool count = true) {
-            if (this is King) {
-                var oldX = Field.X;
-                var newX = field.X;
+            var oldField = Field;
+            var newField = field;
+            var capturedPiece = newField.Piece;
 
-                var dist = oldX - newX;
-
-                if (dist == 2) {
-                    var rook = Board.Fields[0, field.Y].Piece;
-                    rook.SetField(Board.Fields[3, field.Y]);
-                } else if (dist == -2) {
-                    var rook = Board.Fields[7, field.Y].Piece;
-                    rook.SetField(Board.Fields[5, field.Y]);
-                }
-            }
+            OnBeforeMove(oldField, newField);
 
             Field.Piece = null;
             Field = field;
@@ -76,6 +81,8 @@ namespace ChessExerciseManagement.Pieces {
             if (count) {
                 MoveCounter++;
             }
+
+            OnAfterMove(oldField, newField, capturedPiece);
         }
 
         public abstract List<Field> GetAccessibleFields();
@@ -84,20 +91,12 @@ namespace ChessExerciseManagement.Pieces {
 
         public abstract char GetFenChar();
 
-        public bool Equals(Piece other) {
-            return other.m_id == m_id;
+        private void OnBeforeMove(Field oldField, Field newField) {
+            BeforeMove?.Invoke(this, new MoveEvent(oldField, newField, newField.Piece));
         }
 
-        public override bool Equals(object obj) {
-            if (!(obj is Piece)) {
-                return false;
-            }
-
-            return Equals(obj as Piece);
-        }
-
-        public override int GetHashCode() {
-            return m_id;
+        private void OnAfterMove(Field oldField, Field newField, Piece capturedPiece) {
+            AfterMove?.Invoke(this, new MoveEvent(oldField, newField, capturedPiece));
         }
     }
 }

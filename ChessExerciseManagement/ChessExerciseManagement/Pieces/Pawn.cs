@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 
 using ChessExerciseManagement.Models;
@@ -33,18 +32,14 @@ namespace ChessExerciseManagement.Pieces {
         }
 
         public override BitmapImage GetImage() {
-            var path = @"\Images\Pawn";
-
             switch (Affiliation) {
                 case PlayerAffiliation.Black:
-                    path += "Black.png";
-                    break;
+                    return images[10];
                 case PlayerAffiliation.White:
-                    path += "White.png";
-                    break;
+                    return images[11];
             }
 
-            return new BitmapImage(new Uri(path, UriKind.Relative));
+            return null;
         }
     }
 }

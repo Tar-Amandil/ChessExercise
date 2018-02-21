@@ -55,9 +55,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Base\BaseClass.cs" />
+    <Compile Include="Base\Extensions.cs" />
+    <Compile Include="Events\PieceEvent.cs" />
+    <Compile Include="Events\MoveEvent.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Move.cs" />
     <Compile Include="UI\BoardControl.xaml.cs">
       <DependentUpon>BoardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FenWindow.xaml.cs">
+      <DependentUpon>FenWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\FieldControl.xaml.cs">
       <DependentUpon>FieldControl.xaml</DependentUpon>
@@ -78,6 +86,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UI\BoardControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\FenWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -167,6 +179,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

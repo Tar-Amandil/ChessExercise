@@ -1,23 +1,16 @@
 ﻿using System.Text;
-using System.Windows;
+using System.Collections.Generic;
+
 using ChessExerciseManagement.Pieces;
+using ChessExerciseManagement.Base;
+using System.Windows;
 
 namespace ChessExerciseManagement.Models {
-    public class Game {
-        private PlayerAffiliation m_whosTurn = PlayerAffiliation.White;
+    public class Game : BaseClass {
         public PlayerAffiliation WhosTurn {
-            get {
-                return m_whosTurn;
-            }
-            set {
-                if (m_whosTurn != value) {
-                    m_whosTurn = value;
-                    if (value == PlayerAffiliation.White) {
-                        Movecounter++;
-                    }
-                }
-            }
-        }
+            private set;
+            get;
+        } = PlayerAffiliation.White;
 
         public Board Board {
             private set;
@@ -34,7 +27,7 @@ namespace ChessExerciseManagement.Models {
             get;
         }
 
-        public int HalfmovesSinceLastPawnmove {
+        public int HalfmovesSinceLastCaptureOrPawn {
             private set;
             get;
         }
@@ -44,13 +37,19 @@ namespace ChessExerciseManagement.Models {
             get;
         } = 1;
 
+        public List<Move> Moves {
+            private set;
+            get;
+        } = new List<Move>();
+
+        public Player InCheck {
+            private set;
+            get;
+        }
+
         public Game() {
             Board = new Board(8, 8);
-            White = new Player(PlayerAffiliation.White);
-            Black = new Player(PlayerAffiliation.Black);
-
-            Board.AddPlayer(White);
-            Board.AddPlayer(Black);
+            SetupPlayer();
 
             WhosTurn = PlayerAffiliation.White;
 
@@ -60,17 +59,77 @@ namespace ChessExerciseManagement.Models {
 
         public Game(string fen) {
             Board = new Board(8, 8);
-            White = new Player(PlayerAffiliation.White);
-            Black = new Player(PlayerAffiliation.Black);
-
-            Board.AddPlayer(White);
-            Board.AddPlayer(Black);
-
-            WhosTurn = PlayerAffiliation.White;
+            SetupPlayer();
 
             var fenComps = fen.Split(' ');
             LoadPosition(fenComps[0]);
-            MessageBox.Show(fen);
+
+            WhosTurn = fenComps[1].Equals("w") ? PlayerAffiliation.White : PlayerAffiliation.Black;
+            White.MayCastleShort = fenComps[2].Contains("K");
+            White.MayCastleLong = fenComps[2].Contains("Q");
+            Black.MayCastleShort = fenComps[2].Contains("k");
+            White.MayCastleLong = fenComps[2].Contains("q");
+
+            HalfmovesSinceLastCaptureOrPawn = int.Parse(fenComps[4]);
+            Movecounter = int.Parse(fenComps[5]);
+        }
+
+        private void SetupPlayer() {
+            White = new Player(Board, PlayerAffiliation.White);
+            Black = new Player(Board, PlayerAffiliation.Black);
+
+            White.BeforeMove += Player_BeforeMove;
+            Black.BeforeMove += Player_BeforeMove;
+
+            White.AfterMove += Player_AfterMove;
+            Black.AfterMove += Player_AfterMove;
+
+            Board.AddPlayer(White);
+            Board.AddPlayer(Black);
+        }
+
+        private void Player_BeforeMove(Player sender, Move m) {
+            if (m.MovedPiece is Pawn || m.CapturedPiece != null) {
+                HalfmovesSinceLastCaptureOrPawn = 0;
+            } else {
+                HalfmovesSinceLastCaptureOrPawn++;
+            }
+
+            var aff = sender.Affiliation;
+            if (aff == PlayerAffiliation.Black) {
+                WhosTurn = PlayerAffiliation.White;
+                Movecounter++;
+            } else {
+                WhosTurn = PlayerAffiliation.Black;
+            }
+        }
+
+        private void Player_AfterMove(Player sender, Move m) {
+            var movedPiece = m.MovedPiece;
+            var attackedFields = movedPiece.GetAccessibleFields();
+
+            InCheck?.Uncheck();
+            InCheck = null;
+
+            foreach (var field in attackedFields) {
+                var attackedPiece = field.Piece;
+                if (attackedPiece?.Affiliation != movedPiece.Affiliation && attackedPiece is King) {
+                    InCheck = attackedPiece.Player;
+                    InCheck.Check();
+                    m.Check = true;
+
+                    if (InCheck.GetAccessibleFields(false).Count == 0) {
+                        m.Mate = true;
+                        MessageBox.Show("Checkmate");
+                    }
+                }
+            }
+
+            Moves.Add(m);
+
+            if (InCheck?.GetAccessibleFields(false).Count == 0) {
+                MessageBox.Show("Stalemate");
+            }
         }
 
         private void LoadPosition(string fen) {
@@ -246,7 +305,7 @@ namespace ChessExerciseManagement.Models {
             sb.Append("-");
             sb.Append(" ");
 
-            sb.Append(HalfmovesSinceLastPawnmove);
+            sb.Append(HalfmovesSinceLastCaptureOrPawn);
             sb.Append(" ");
 
             sb.Append(Movecounter);

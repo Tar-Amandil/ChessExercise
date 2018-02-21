@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 
 using ChessExerciseManagement.Models;
+using ChessExerciseManagement.Events;
 
 namespace ChessExerciseManagement.UI {
     public partial class FieldControl : UserControl {
@@ -20,9 +21,9 @@ namespace ChessExerciseManagement.UI {
         public void SetField(Field field) {
             m_field = field;
             field.FieldControl = this;
-            m_field.MyEvent += M_field_MyEvent;
+            m_field.PieceChange += Field_PieceChange;
 
-            if(field.X % 2 == field.Y % 2) {
+            if (field.X % 2 == field.Y % 2) {
                 Background = Brushes.AliceBlue;
             } else {
                 Background = Brushes.RosyBrown;
@@ -31,7 +32,7 @@ namespace ChessExerciseManagement.UI {
             imageViewer.Source = field.Piece?.GetImage();
         }
 
-        private void M_field_MyEvent(object sender, PieceEvent e) {
+        private void Field_PieceChange(object sender, PieceEvent e) {
             if (e.Piece == null) {
                 imageViewer.Source = null;
             } else {
@@ -43,12 +44,9 @@ namespace ChessExerciseManagement.UI {
             var game = TrainingWindow.Game;
 
             if (markedFieldControls.Contains(this)) {
-
                 var markedPiece = markedFieldControl.m_field.Piece;
                 markedPiece.SetField(m_field);
 
-
-                game.WhosTurn = game.WhosTurn == PlayerAffiliation.Black ? PlayerAffiliation.White : PlayerAffiliation.Black;
 
                 foreach (var fieldControl in markedFieldControls) {
                     fieldControl.BorderBrush = Brushes.Black;
@@ -60,7 +58,6 @@ namespace ChessExerciseManagement.UI {
                 markedFieldControl = null;
 
                 return;
-                // MessageBox.Show("Whoop");
             }
 
             foreach (var fieldControl in markedFieldControls) {

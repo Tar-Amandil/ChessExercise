@@ -21,7 +21,7 @@ namespace ChessExerciseManagement.UI {
             }
         }
 
-        private readonly FieldControl[,] controls;
+        public readonly FieldControl[,] controls;
 
         public BoardControl() {
             InitializeComponent();

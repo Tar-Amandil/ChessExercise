@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="auto" Width="auto">
     <Grid>
-        <Button x:Name="TrainingsButton" Content="Add new Position" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106" Click="TrainingsButton_Click"/>
+        <Button x:Name="TrainingButton" Content="Add new Position" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="110" Click="TrainingButton_Click"/>
+        <Button x:Name="FenButton" Content="Enter FEN" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="110" Click="FenButton_Click"/>
     </Grid>
 </Window>

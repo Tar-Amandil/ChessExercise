@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using ChessExerciseManagement.Models;
 
@@ -270,49 +269,34 @@ namespace ChessExerciseManagement.Pieces {
                 }
             }
 
-            if (piece.MoveCounter != 0) {
-                return list;
+            if (player.MayCastleLong) {
+                var field1 = field;
+                var field2 = fields[x - 1, y];
+                var field3 = fields[x - 2, y];
+
+                if (!(attackedFields.Contains(field1)
+                    || attackedFields.Contains(field2)
+                    || attackedFields.Contains(field3))) {
+
+                    if (field2.Piece == null && field3.Piece == null) {
+                        list.Add(field3);
+                    }
+                }
             }
 
-            var rooks = player.Pieces.Where(p => p is Rook);
+            if (player.MayCastleShort) {
+                var field1 = field;
+                var field2 = fields[x + 1, y];
+                var field3 = fields[x + 2, y];
 
-            foreach (var rook in rooks) {
-                if (rook.MoveCounter != 0) {
-                    continue;
-                }
+                if (!(attackedFields.Contains(field1)
+                    || attackedFields.Contains(field2)
+                    || attackedFields.Contains(field3))) {
 
-                var rX = rook.Field.X;
-                var rY = rook.Field.Y;
-
-                if (rX == 0) {
-
-                    var field1 = field;
-                    var field2 = fields[x - 1, y];
-                    var field3 = fields[x - 2, y];
-
-                    if (!(attackedFields.Contains(field1)
-                        || attackedFields.Contains(field2)
-                        || attackedFields.Contains(field3))) {
-
-                        if (field2.Piece == null && field3.Piece == null) {
-                            list.Add(field3);
-                        }
-                    }
-                } else if (rX == board.Width - 1) {
-                    var field1 = field;
-                    var field2 = fields[x + 1, y];
-                    var field3 = fields[x + 2, y];
-
-                    if (!(attackedFields.Contains(field1)
-                        || attackedFields.Contains(field2)
-                        || attackedFields.Contains(field3))) {
-
-                        if (field2.Piece == null && field3.Piece == null) {
-                            list.Add(field3);
-                        }
+                    if (field2.Piece == null && field3.Piece == null) {
+                        list.Add(field3);
                     }
                 }
-
             }
 
             return list;
