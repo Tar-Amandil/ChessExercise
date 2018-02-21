@@ -15,6 +15,11 @@ namespace ChessExerciseManagement.Models {
             get;
         }
 
+        public Board Board {
+            private set;
+            get;
+        }
+
         private Piece m_piece;
         public Piece Piece {
             set {
@@ -22,7 +27,9 @@ namespace ChessExerciseManagement.Models {
                     throw new ArgumentException("Those pieces cannot capture one another.");
                 }
 
-                m_piece?.Capture(value);
+                if (value != null) {
+                    m_piece?.Capture(value);
+                }
                 m_piece = value;
                 //m_piece.SetField(this);
 
@@ -47,8 +54,9 @@ namespace ChessExerciseManagement.Models {
             get;
         }
 
-        public Field(int x, int y) {
+        public Field(Board board, int x, int y) {
             m_id = ID++;
+            Board = board;
             X = x;
             Y = y;
         }

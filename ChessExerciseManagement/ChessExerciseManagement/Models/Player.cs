@@ -1,15 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 
 using ChessExerciseManagement.Pieces;
 
 namespace ChessExerciseManagement.Models {
     public class Player {
         public PlayerAffiliation Affiliation {
-            private set;
-            get;
-        }
-
-        public Board Board {
             private set;
             get;
         }
@@ -30,10 +26,9 @@ namespace ChessExerciseManagement.Models {
             get;
         }
 
-        public Player(PlayerAffiliation affiliation, Board board) {
+        public Player(PlayerAffiliation affiliation) {
             m_id = ID++;
             Affiliation = affiliation;
-            Board = board;
         }
 
         public bool AddPiece(Piece newPiece) {
@@ -51,14 +46,39 @@ namespace ChessExerciseManagement.Models {
             LostPieces.Add(lostPiece);
         }
 
-        public List<Field> GetAccessibleFields() {
+        public List<Field> GetAccessibleFields(bool castle) {
             var list = new List<Field>();
 
             foreach (var piece in Pieces) {
+                if (castle && piece is King) {
+                    continue;
+                }
                 list.AddRange(piece.GetAccessibleFields());
             }
 
             return list;
+        }
+
+        public string GetFenCastle() {
+            var relevantPieces = Pieces.Where(p => (p is King || p is Rook) && p.MoveCounter == 0);
+            var kings = relevantPieces.Where(p => p is King);
+            var rooks = relevantPieces.Where(p => p is Rook);
+
+            if (kings.Count() != 1 || rooks.Count() == 0) {
+                return string.Empty;
+            }
+
+            var mes = string.Empty;
+
+            foreach (Rook rook in rooks) {
+                if (rook.Field.X == 0) {
+                    mes += Affiliation == PlayerAffiliation.White ? 'Q' : 'q';
+                } else if (rook.Field.X == 7) {
+                    mes += Affiliation == PlayerAffiliation.White ? 'K' : 'k';
+                }
+            }
+
+            return mes;
         }
 
         public bool Equals(Player other) {

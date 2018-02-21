@@ -1,9 +1,10 @@
-﻿using ChessExerciseManagement.Models;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows;
 using System.Windows.Media;
+using System.Windows.Input;
+using System.Windows.Controls;
+using System.Collections.Generic;
+
+using ChessExerciseManagement.Models;
 
 namespace ChessExerciseManagement.UI {
     public partial class FieldControl : UserControl {
@@ -20,6 +21,8 @@ namespace ChessExerciseManagement.UI {
             m_field = field;
             field.FieldControl = this;
             m_field.MyEvent += M_field_MyEvent;
+
+            imageViewer.Source = field.Piece?.GetImage();
         }
 
         private void M_field_MyEvent(object sender, PieceEvent e) {
@@ -31,12 +34,15 @@ namespace ChessExerciseManagement.UI {
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
+            var game = TrainingWindow.Game;
+
             if (markedFieldControls.Contains(this)) {
 
                 var markedPiece = markedFieldControl.m_field.Piece;
                 markedPiece.SetField(m_field);
 
-                MainWindow.WhosTurn = MainWindow.WhosTurn == PlayerAffiliation.Black ? PlayerAffiliation.White : PlayerAffiliation.Black;
+
+                game.WhosTurn = game.WhosTurn == PlayerAffiliation.Black ? PlayerAffiliation.White : PlayerAffiliation.Black;
 
                 foreach (var fieldControl in markedFieldControls) {
                     fieldControl.BorderBrush = Brushes.Black;
@@ -60,7 +66,7 @@ namespace ChessExerciseManagement.UI {
             markedFieldControls.Clear();
 
             var piece = m_field.Piece;
-            if (piece == null || piece.Affiliation != MainWindow.WhosTurn) {
+            if (piece == null || piece.Affiliation != game.WhosTurn) {
                 return;
             }
 

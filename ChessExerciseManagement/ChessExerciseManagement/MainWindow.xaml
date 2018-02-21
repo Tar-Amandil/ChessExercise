@@ -6,10 +6,8 @@
         xmlns:local="clr-namespace:ChessExerciseManagement"
         xmlns:u="clr-namespace:ChessExerciseManagement.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="900" Loaded="Window_Loaded">
+        Title="MainWindow" Height="auto" Width="auto">
     <Grid>
-        <u:BoardControl x:Name="boardControl">
-            
-        </u:BoardControl>
+        <Button x:Name="TrainingsButton" Content="Add new Position" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106" Click="TrainingsButton_Click"/>
     </Grid>
 </Window>

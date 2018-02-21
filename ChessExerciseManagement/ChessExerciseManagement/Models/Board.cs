@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace ChessExerciseManagement.Models {
     public class Board {
@@ -30,7 +31,7 @@ namespace ChessExerciseManagement.Models {
 
             for (var x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    Fields[x, y] = new Field(x, y);
+                    Fields[x, y] = new Field(this, x, y);
                 }
             }
         }
@@ -39,7 +40,7 @@ namespace ChessExerciseManagement.Models {
             Player.Add(player);
         }
 
-        public List<Field> GetAttackedFields(Player player) {
+        public List<Field> GetAttackedFields(Player player, bool castle = false) {
             var list = new List<Field>();
 
             foreach (var p in Player) {
@@ -47,10 +48,42 @@ namespace ChessExerciseManagement.Models {
                     continue;
                 }
 
-                list.AddRange(p.GetAccessibleFields());
+                list.AddRange(p.GetAccessibleFields(castle));
             }
 
             return list;
+        }
+
+        public string GetFenCode() {
+            var sb = new StringBuilder();
+
+            for (var y = 7; y >= 0; y--) {
+                var emptyFieldCounter = 0;
+
+                for (int x = 0; x < 8; x++) {
+                    var field = Fields[x, y];
+                    var piece = field.Piece;
+
+                    if (piece == null) {
+                        emptyFieldCounter++;
+                        continue;
+                    }
+
+                    if (emptyFieldCounter != 0) {
+                        sb.Append(emptyFieldCounter);
+                        emptyFieldCounter = 0;
+                    }
+
+                    sb.Append(piece.GetFenChar());
+                }
+
+                if(emptyFieldCounter != 0) {
+                    sb.Append(emptyFieldCounter);
+                }
+
+                sb.Append('/');
+            }
+            return sb.ToString();
         }
     }
 }

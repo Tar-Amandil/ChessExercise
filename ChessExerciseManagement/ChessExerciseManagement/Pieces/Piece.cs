@@ -82,6 +82,8 @@ namespace ChessExerciseManagement.Pieces {
 
         public abstract BitmapImage GetImage();
 
+        public abstract char GetFenChar();
+
         public bool Equals(Piece other) {
             return other.m_id == m_id;
         }

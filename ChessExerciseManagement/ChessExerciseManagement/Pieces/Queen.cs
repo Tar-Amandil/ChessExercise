@@ -15,6 +15,17 @@ namespace ChessExerciseManagement.Pieces {
             return list;
         }
 
+        public override char GetFenChar() {
+            switch (Affiliation) {
+                case PlayerAffiliation.Black:
+                    return 'q';
+                case PlayerAffiliation.White:
+                    return 'Q';
+            }
+
+            return 'X';
+        }
+
         public override BitmapImage GetImage() {
             var path = @"\Images\Queen";
 

@@ -13,6 +13,17 @@ namespace ChessExerciseManagement.Pieces {
             return Moves.GetAccessibleFieldsKing(Board, this);
         }
 
+        public override char GetFenChar() {
+            switch (Affiliation) {
+                case PlayerAffiliation.Black:
+                    return 'k';
+                case PlayerAffiliation.White:
+                    return 'K';
+            }
+
+            return 'X';
+        }
+
         public override BitmapImage GetImage() {
             var path = @"\Images\King";
 

@@ -248,7 +248,7 @@ namespace ChessExerciseManagement.Pieces {
             var dX = new[] { 0, -1, -1, -1, 0, 1, 1, 1 };
             var dY = new[] { 1, 1, 0, -1, -1, -1, 0, 1 };
 
-            var attackedFields = board.GetAttackedFields(player);
+            var attackedFields = board.GetAttackedFields(player, true);
 
             for (var i = 0; i < 8; i++) {
                 var nX = x + dX[i];

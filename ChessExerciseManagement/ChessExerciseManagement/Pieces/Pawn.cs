@@ -21,6 +21,17 @@ namespace ChessExerciseManagement.Pieces {
             return Moves.GetAccessibleFieldsPawn(Board, this, dY);
         }
 
+        public override char GetFenChar() {
+            switch (Affiliation) {
+                case PlayerAffiliation.Black:
+                    return 'p';
+                case PlayerAffiliation.White:
+                    return 'P';
+            }
+
+            return 'X';
+        }
+
         public override BitmapImage GetImage() {
             var path = @"\Images\Pawn";
 

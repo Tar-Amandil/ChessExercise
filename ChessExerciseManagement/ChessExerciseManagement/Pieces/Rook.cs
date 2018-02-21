@@ -13,10 +13,21 @@ namespace ChessExerciseManagement.Pieces {
             return Moves.GetAccessibleFieldsRook(Board, this);
         }
 
+        public override char GetFenChar() {
+            switch (Affiliation) {
+                case PlayerAffiliation.Black:
+                    return 'r';
+                case PlayerAffiliation.White:
+                    return 'R';
+            }
+
+            return 'X';
+        }
+
         public override BitmapImage GetImage() {
             var path = @"\Images\Rook";
 
-            switch(Affiliation) {
+            switch (Affiliation) {
                 case PlayerAffiliation.Black:
                     path += "Black.png";
                     break;
