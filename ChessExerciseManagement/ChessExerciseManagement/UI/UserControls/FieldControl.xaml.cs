@@ -2,17 +2,16 @@
 using System.Windows.Media;
 using System.Windows.Input;
 using System.Windows.Controls;
-using System.Collections.Generic;
 
 using ChessExerciseManagement.Models;
 using ChessExerciseManagement.Events;
 
-namespace ChessExerciseManagement.UI {
+namespace ChessExerciseManagement.UI.UserControls {
     public partial class FieldControl : UserControl {
         private Field m_field;
+        private BoardControl m_boardControl;
 
-        private static List<FieldControl> markedFieldControls = new List<FieldControl>();
-        private static FieldControl markedFieldControl;
+        private bool m_readonly;
 
         public FieldControl() {
             InitializeComponent();
@@ -20,7 +19,6 @@ namespace ChessExerciseManagement.UI {
 
         public void SetField(Field field) {
             m_field = field;
-            field.FieldControl = this;
             m_field.PieceChange += Field_PieceChange;
 
             if (field.X % 2 == field.Y % 2) {
@@ -32,6 +30,14 @@ namespace ChessExerciseManagement.UI {
             imageViewer.Source = field.Piece?.GetImage();
         }
 
+        public void SetBoardControl(BoardControl boardControl) {
+            m_boardControl = boardControl;
+        }
+
+        public void SetReadonly(bool read) {
+            m_readonly = read;
+        }
+
         private void Field_PieceChange(object sender, PieceEvent e) {
             if (e.Piece == null) {
                 imageViewer.Source = null;
@@ -41,21 +47,26 @@ namespace ChessExerciseManagement.UI {
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
+            if (m_readonly) {
+                return;
+            }
+
             var game = TrainingWindow.Game;
+            var markedFieldControls = m_boardControl.MarkedFieldControls;
 
             if (markedFieldControls.Contains(this)) {
-                var markedPiece = markedFieldControl.m_field.Piece;
+                var markedPiece = m_boardControl.MarkedFieldControl.m_field.Piece;
                 markedPiece.SetField(m_field);
 
 
                 foreach (var fieldControl in markedFieldControls) {
                     fieldControl.BorderBrush = Brushes.Black;
                     fieldControl.BorderThickness = new Thickness(1, 1, 1, 1);
-                    markedFieldControl = null;
+                    m_boardControl.MarkedFieldControl = null;
                 }
 
                 markedFieldControls.Clear();
-                markedFieldControl = null;
+                m_boardControl.MarkedFieldControl = null;
 
                 return;
             }
@@ -63,7 +74,7 @@ namespace ChessExerciseManagement.UI {
             foreach (var fieldControl in markedFieldControls) {
                 fieldControl.BorderBrush = Brushes.Black;
                 fieldControl.BorderThickness = new Thickness(1, 1, 1, 1);
-                markedFieldControl = null;
+                m_boardControl.MarkedFieldControl = null;
             }
 
             markedFieldControls.Clear();
@@ -76,13 +87,17 @@ namespace ChessExerciseManagement.UI {
             var fields = piece.GetAccessibleFields();
 
             foreach (var field in fields) {
-                var control = field.FieldControl;
+                var x = field.X;
+                var y = field.Y;
+
+                var control = m_boardControl.Controls[x, y];
+
                 control.BorderBrush = Brushes.Red;
                 control.BorderThickness = new Thickness(3.0d);
                 markedFieldControls.Add(control);
             }
 
-            markedFieldControl = this;
+            m_boardControl.MarkedFieldControl = this;
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 
 using ChessExerciseManagement.Pieces;
-using ChessExerciseManagement.UI;
 using ChessExerciseManagement.Base;
 using ChessExerciseManagement.Events;
 
@@ -38,11 +37,6 @@ namespace ChessExerciseManagement.Models {
 
         public event CustomFieldEventHandler PieceChange;
         public delegate void CustomFieldEventHandler(object sender, PieceEvent e);
-
-        public FieldControl FieldControl {
-            set;
-            get;
-        }
 
         public Field(int x, int y) {
             X = x;

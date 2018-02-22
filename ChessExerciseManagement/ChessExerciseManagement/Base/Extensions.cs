@@ -1,6 +1,5 @@
 ﻿namespace ChessExerciseManagement.Base {
     public static class Extensions {
-
         public static int GetRow(this char c) {
             switch (c) {
                 case 'a':

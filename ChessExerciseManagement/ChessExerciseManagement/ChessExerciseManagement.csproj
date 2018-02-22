@@ -59,19 +59,30 @@
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Events\PieceEvent.cs" />
     <Compile Include="Events\MoveEvent.cs" />
+    <Compile Include="Exercises\ExerciseManager.cs" />
+    <Compile Include="Exercises\Index.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Move.cs" />
-    <Compile Include="UI\BoardControl.xaml.cs">
+    <Compile Include="UI\UserControls\BoardControl.xaml.cs">
       <DependentUpon>BoardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ExploreWindow.xaml.cs">
+      <DependentUpon>ExploreWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\FenWindow.xaml.cs">
       <DependentUpon>FenWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\FieldControl.xaml.cs">
+    <Compile Include="UI\UserControls\FieldControl.xaml.cs">
       <DependentUpon>FieldControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\KeywordWindow.xaml.cs">
+      <DependentUpon>KeywordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\TrainingWindow.xaml.cs">
       <DependentUpon>TrainingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ViewWindow.xaml.cs">
+      <DependentUpon>ViewWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -85,7 +96,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\BoardControl.xaml">
+    <Page Include="UI\UserControls\BoardControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ExploreWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -93,11 +108,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\FieldControl.xaml">
+    <Page Include="UI\UserControls\FieldControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\KeywordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\TrainingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ViewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

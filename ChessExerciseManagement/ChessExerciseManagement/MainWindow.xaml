@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:ChessExerciseManagement"
         xmlns:u="clr-namespace:ChessExerciseManagement.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="auto" Width="auto">
+        Title="MainWindow" Height="128" Width="337" ResizeMode="NoResize">
     <Grid>
-        <Button x:Name="TrainingButton" Content="Add new Position" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="110" Click="TrainingButton_Click"/>
-        <Button x:Name="FenButton" Content="Enter FEN" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="110" Click="FenButton_Click"/>
+        <Button x:Name="MoveButton" Content="Enter Moves" Margin="10,10,10,0" VerticalAlignment="Top" Click="MoveButton_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="FenButton" Content="Enter FEN" Margin="10,35,10,0" VerticalAlignment="Top" Click="FenButton_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="ExploreButton" Content="Explore Database" Margin="10,60,10,0" VerticalAlignment="Top" Click="ExploreButton_Click" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

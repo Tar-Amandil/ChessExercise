@@ -1,10 +1,10 @@
-﻿using ChessExerciseManagement.Models;
+﻿using ChessExerciseManagement.Exercises;
+using ChessExerciseManagement.Models;
 using Microsoft.Win32;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ChessExerciseManagement.UI {
     public partial class TrainingWindow : Window {
@@ -70,6 +70,25 @@ namespace ChessExerciseManagement.UI {
                 using (var stream = File.Create(path)) {
                     pngImage.Save(stream);
                 }
+            }
+        }
+
+        private void SaveExerciseButton_Click(object sender, RoutedEventArgs e) {
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "FEN files (*.fen)|*.fen";
+
+            if (saveFileDialog.ShowDialog() == true) {
+                var fen = Game.GetFen();
+                var filename = saveFileDialog.FileName;
+                File.WriteAllText(filename, fen);
+
+                var keywordWindow = new KeywordWindow();
+                keywordWindow.ShowDialog();
+
+                var keywords = keywordWindow.Keywords;
+
+                Index.AddFile(filename, keywords);
+                ExerciseManager.AddExercise(filename, keywords);
             }
         }
     }

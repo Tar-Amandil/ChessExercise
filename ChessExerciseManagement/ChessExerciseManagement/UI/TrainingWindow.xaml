@@ -4,13 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChessExerciseManagement.UI"
+        xmlns:uc="clr-namespace:ChessExerciseManagement.UI.UserControls"
         mc:Ignorable="d"
         Title="TrainingWindow" Height="839" Width="1011.5">
     <Grid Height="auto" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <local:BoardControl x:Name="boardControl" />
+        <uc:BoardControl x:Name="boardControl" Height="800" VerticalAlignment="Top" Width="800" HorizontalAlignment="Left" />
         <Button x:Name="NewGameButton" Content="New Game" HorizontalAlignment="Left" Margin="805,102,-105,0" VerticalAlignment="Top" Width="100" Click="NewGameButton_Click"/>
         <Button x:Name="SaveFenButton" Content="Save Fen" HorizontalAlignment="Left" Margin="805,127,-105,0" VerticalAlignment="Top" Width="100" Click="SaveFenButton_Click"/>
         <Button x:Name="LoadFenButton" Content="Load Fen" HorizontalAlignment="Left" Margin="805,152,-105,0" VerticalAlignment="Top" Width="100" Click="LoadFenButton_Click"/>
         <Button x:Name="SavePictureButton" Content="Save as Picture" HorizontalAlignment="Left" Margin="805,177,-105,0" VerticalAlignment="Top" Width="100" Click="SavePictureButton_Click"/>
+        <Button x:Name="SaveExerciseButton" Content="Save as Exercise" HorizontalAlignment="Left" Margin="805,202,-105,0" VerticalAlignment="Top" Width="100" Click="SaveExerciseButton_Click"/>
     </Grid>
 </Window>
