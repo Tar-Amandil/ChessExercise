@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-
 using ChessExerciseManagement.Models;
+using ChessExerciseManagement.Models.Pieces;
 
-namespace ChessExerciseManagement.Pieces {
-    public static class Moves {
+namespace ChessExerciseManagement.Controls {
+    public static class MoveController {
         public static List<Field> GetAccessibleFieldsPawn(Board board, Piece piece, int dY) {
             var list = new List<Field>();
 

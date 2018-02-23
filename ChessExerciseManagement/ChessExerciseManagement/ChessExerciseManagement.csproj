@@ -9,11 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ChessExerciseManagement</RootNamespace>
     <AssemblyName>ChessExerciseManagement</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,7 +43,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -57,12 +57,17 @@
     </ApplicationDefinition>
     <Compile Include="Base\BaseClass.cs" />
     <Compile Include="Base\Extensions.cs" />
+    <Compile Include="Controls\MoveController.cs" />
+    <Compile Include="Events\CaptureEvent.cs" />
     <Compile Include="Events\PieceEvent.cs" />
     <Compile Include="Events\MoveEvent.cs" />
     <Compile Include="Exercises\ExerciseManager.cs" />
     <Compile Include="Exercises\Index.cs" />
+    <Compile Include="Models\Moves\CaptureMove.cs" />
+    <Compile Include="Models\Moves\CastleMove.cs" />
+    <Compile Include="Models\FenMode.cs" />
     <Compile Include="Models\Game.cs" />
-    <Compile Include="Models\Move.cs" />
+    <Compile Include="Models\Moves\Move.cs" />
     <Compile Include="UI\UserControls\BoardControl.xaml.cs">
       <DependentUpon>BoardControl.xaml</DependentUpon>
     </Compile>
@@ -126,18 +131,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pieces\Bishop.cs" />
+    <Compile Include="Models\Pieces\Bishop.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\Field.cs" />
-    <Compile Include="Pieces\King.cs" />
-    <Compile Include="Pieces\Knight.cs" />
-    <Compile Include="Pieces\Moves.cs" />
-    <Compile Include="Pieces\Pawn.cs" />
-    <Compile Include="Pieces\Piece.cs" />
+    <Compile Include="Models\Pieces\King.cs" />
+    <Compile Include="Models\Pieces\Knight.cs" />
+    <Compile Include="Models\Pieces\Pawn.cs" />
+    <Compile Include="Models\Pieces\Piece.cs" />
     <Compile Include="Models\PlayerAffiliation.cs" />
     <Compile Include="Models\Player.cs" />
-    <Compile Include="Pieces\Queen.cs" />
-    <Compile Include="Pieces\Rook.cs" />
+    <Compile Include="Models\Pieces\Queen.cs" />
+    <Compile Include="Models\Pieces\Rook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

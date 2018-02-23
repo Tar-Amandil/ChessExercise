@@ -1,6 +1,5 @@
 ﻿using System;
-
-using ChessExerciseManagement.Pieces;
+using ChessExerciseManagement.Models.Pieces;
 using ChessExerciseManagement.Base;
 using ChessExerciseManagement.Events;
 
@@ -24,7 +23,7 @@ namespace ChessExerciseManagement.Models {
                 }
 
                 if (value != null) {
-                    m_piece?.Capture(value);
+                    m_piece?.GetCaptured(value);
                 }
                 m_piece = value;
 

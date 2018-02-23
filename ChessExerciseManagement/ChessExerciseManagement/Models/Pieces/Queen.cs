@@ -1,23 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media.Imaging;
+using ChessExerciseManagement.Controls;
 
-using ChessExerciseManagement.Models;
-
-namespace ChessExerciseManagement.Pieces {
-    public class Knight : Piece {
-        public Knight(Player player, Board board, Field field) : base(player, board, field) {
+namespace ChessExerciseManagement.Models.Pieces {
+    public class Queen : Piece {
+        public Queen(Player player, Board board, Field field) : base(player, board, field) {
         }
 
         public override List<Field> GetAccessibleFields() {
-            return Moves.GetAccessibleFieldsKnight(Board, this);
+            var list = MoveController.GetAccessibleFieldsBishop(Board, this);
+            list.AddRange(MoveController.GetAccessibleFieldsRook(Board, this));
+            return list;
         }
 
         public override char GetFenChar() {
             switch (Affiliation) {
                 case PlayerAffiliation.Black:
-                    return 'n';
+                    return 'q';
                 case PlayerAffiliation.White:
-                    return 'N';
+                    return 'Q';
             }
 
             return 'X';
@@ -26,9 +27,9 @@ namespace ChessExerciseManagement.Pieces {
         public override BitmapImage GetImage() {
             switch (Affiliation) {
                 case PlayerAffiliation.Black:
-                    return images[2];
+                    return images[6];
                 case PlayerAffiliation.White:
-                    return images[3];
+                    return images[7];
             }
 
             return null;

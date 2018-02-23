@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-
-using ChessExerciseManagement.Pieces;
+using ChessExerciseManagement.Models.Pieces;
 using ChessExerciseManagement.Events;
 using ChessExerciseManagement.Base;
 using System;
+using ChessExerciseManagement.Models.Moves;
 
 namespace ChessExerciseManagement.Models {
     public class Player : BaseClass {
@@ -35,9 +35,11 @@ namespace ChessExerciseManagement.Models {
 
         private Board m_board;
 
-        public event PlayerEventHandler AfterMove;
-        public event PlayerEventHandler BeforeMove;
-        public delegate void PlayerEventHandler(Player player, Move m);
+        public event PlayerMoveEventHandler Move;
+        public delegate void PlayerMoveEventHandler(object sender, MoveEvent m);
+
+        public event PlayerCaptureEventHandler Capture;
+        public delegate void PlayerCaptureEventHandler(object sender, CaptureEvent m);
 
         private bool inCheck;
 
@@ -53,21 +55,23 @@ namespace ChessExerciseManagement.Models {
 
             Pieces.Add(newPiece);
 
-            newPiece.BeforeMove += Piece_BeforeMove;
-            newPiece.AfterMove += Piece_AfterMove;
+            newPiece.Move += Piece_Move;
+            newPiece.Capture += Piece_Capture;
 
             return true;
         }
 
-        private void Piece_BeforeMove(Piece piece, MoveEvent e) {
+        private void Piece_Move(object sender, MoveEvent e) {
+            var piece = sender as Piece;
+            var move = e.Move;
             if (piece?.MoveCounter == 0) {
                 if (piece is King) {
                     MayCastleShort = false;
                     MayCastleLong = false;
 
-                    var y = e.NewField.Y;
-                    var nX = e.NewField.X;
-                    var oX = e.OldField.X;
+                    var y = move.NewField.Y;
+                    var nX = move.NewField.X;
+                    var oX = move.OldField.X;
 
                     if (oX - nX == 2) {
                         var rook = Pieces.Where(p => p.MoveCounter == 0 && p is Rook && p.Field.X == 0).First();
@@ -88,11 +92,11 @@ namespace ChessExerciseManagement.Models {
                 }
             }
 
-            OnBeforeMove(e, piece);
+            OnMove(e);
         }
 
-        private void Piece_AfterMove(Piece sender, MoveEvent e) {
-            OnAfterMove(e, sender);
+        private void Piece_Capture(object sender, CaptureEvent e) {
+            OnCapture(e);
         }
 
         public void NotifyCapturedPiece(Piece lostPiece, Piece capturingPiece) {
@@ -121,12 +125,12 @@ namespace ChessExerciseManagement.Models {
             inCheck = true;
         }
 
-        private void OnBeforeMove(MoveEvent e, Piece movedPiece) {
-            BeforeMove?.Invoke(this, new Move(e.OldField, e.NewField, movedPiece, e.CapturedPiece));
+        private void OnMove(MoveEvent e) {
+            Move?.Invoke(this, e);
         }
 
-        private void OnAfterMove(MoveEvent e, Piece movedPiece) {
-            AfterMove?.Invoke(this, new Move(e.OldField, e.NewField, movedPiece, e.CapturedPiece));
+        private void OnCapture(CaptureEvent e) {
+            Capture?.Invoke(this, e);
         }
 
         public string GetFenCastle() {

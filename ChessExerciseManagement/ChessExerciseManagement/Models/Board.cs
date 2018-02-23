@@ -55,7 +55,7 @@ namespace ChessExerciseManagement.Models {
             return list;
         }
 
-        public string GetFenCode() {
+        private string GetFenCodeClassical() {
             var sb = new StringBuilder();
 
             for (var y = 7; y >= 0; y--) {
@@ -86,6 +86,47 @@ namespace ChessExerciseManagement.Models {
                 }
             }
             return sb.ToString();
+        }
+
+        private string GetFenCodeJonas() {
+            var sb = new StringBuilder();
+
+            var emptyFieldCounter = 0;
+            for (var y = 7; y >= 0; y--) {
+                for (int x = 0; x < 8; x++) {
+                    var field = Fields[x, y];
+                    var piece = field.Piece;
+
+                    if (piece == null) {
+                        emptyFieldCounter++;
+                        continue;
+                    }
+
+                    if (emptyFieldCounter != 0) {
+                        sb.Append(emptyFieldCounter);
+                        emptyFieldCounter = 0;
+                    }
+
+                    sb.Append(piece.GetFenChar());
+                }
+            }
+
+            if (emptyFieldCounter != 0) {
+                sb.Append(emptyFieldCounter);
+            }
+
+            return sb.ToString();
+        }
+
+        public string GetFenCode(FenMode mode) {
+            switch (mode) {
+                case FenMode.Classical:
+                    return GetFenCodeClassical();
+                case FenMode.Jonas:
+                    return GetFenCodeJonas();
+            }
+
+            return string.Empty;
         }
     }
 }

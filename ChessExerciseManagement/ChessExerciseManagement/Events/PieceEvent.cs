@@ -1,4 +1,4 @@
-﻿using ChessExerciseManagement.Pieces;
+﻿using ChessExerciseManagement.Models.Pieces;
 
 namespace ChessExerciseManagement.Events {
     public class PieceEvent {

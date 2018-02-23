@@ -1,27 +1,19 @@
-﻿using ChessExerciseManagement.Models;
-using ChessExerciseManagement.Pieces;
+﻿using System;
+using ChessExerciseManagement.Models.Moves;
 
 namespace ChessExerciseManagement.Events {
-    public class MoveEvent {
-        public Field OldField {
+    public class MoveEvent : EventArgs {
+        public Move Move {
             private set;
             get;
         }
 
-        public Field NewField {
-            private set;
-            get;
-        }
+        public MoveEvent(Move move) {
+            if (move == null) {
+                throw new ArgumentNullException("oldField must not be null");
+            }
 
-        public Piece CapturedPiece {
-            private set;
-            get;
-        }
-
-        public MoveEvent(Field oldField, Field newField, Piece capturedPiece) {
-            OldField = oldField;
-            NewField = newField;
-            CapturedPiece = capturedPiece;
+            Move = move;
         }
     }
 }

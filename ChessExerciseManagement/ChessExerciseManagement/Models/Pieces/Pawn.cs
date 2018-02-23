@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media.Imaging;
+using ChessExerciseManagement.Controls;
 
-using ChessExerciseManagement.Models;
-
-namespace ChessExerciseManagement.Pieces {
+namespace ChessExerciseManagement.Models.Pieces {
     public class Pawn : Piece {
         public Pawn(Player player, Board board, Field field) : base(player, board, field) {
         }
@@ -17,7 +16,7 @@ namespace ChessExerciseManagement.Pieces {
                 dY = 1;
             }
 
-            return Moves.GetAccessibleFieldsPawn(Board, this, dY);
+            return MoveController.GetAccessibleFieldsPawn(Board, this, dY);
         }
 
         public override char GetFenChar() {
