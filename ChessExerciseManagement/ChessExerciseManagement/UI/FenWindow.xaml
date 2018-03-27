@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChessExerciseManagement.UI"
         mc:Ignorable="d"
-        Title="FenWindow" Height="139" Width="500" ResizeMode="NoResize">
+        Title="FenWindow" Height="371.5" Width="500" ResizeMode="NoResize">
     <Grid>
-        <TextBox x:Name="FenTextBox" Text="" TextWrapping="Wrap" Height="57" Margin="10,10,10,0" VerticalAlignment="Top"/>
-        <Button x:Name="CheckFenButton" Content="Check FEN" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="154" Click="CheckFenButton_Click"/>
-        <Button x:Name="SaveFenButton" Content="Save FEN" HorizontalAlignment="Left" Margin="169,72,0,0" VerticalAlignment="Top" Width="154" Click="SaveFenButton_Click"/>
-        <Button x:Name="SaveExerciseButton" Content="Save as Exercise" Margin="328,72,10,0" VerticalAlignment="Top" Click="SaveExerciseButton_Click"/>
+        <TextBox x:Name="FenTextBox" Text="" TextWrapping="Wrap" Margin="10,10,10,35" AcceptsReturn="True"/>
+        <Button x:Name="CheckFenButton" Content="Check FEN" HorizontalAlignment="Left" Margin="10,0,0,10" Width="154" Click="CheckFenButton_Click" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="SaveFenButton" Content="Save FEN" HorizontalAlignment="Left" Margin="169,0,0,10" Width="154" Click="SaveFenButton_Click" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="SaveExerciseButton" Content="Save as Exercise" Margin="328,0,10,10" Click="SaveExerciseButton_Click" Height="20" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>
