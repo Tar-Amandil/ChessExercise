@@ -7,6 +7,7 @@ namespace ChessExerciseManagement.Exercises {
     public static class Index {
         private static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\ChessApplication";
         private static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\ChessApplication\index.txt";
+        private static string fenFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\ChessApplication\Fen";
         private static string indexPath;
 
         public static void Load() {
@@ -107,6 +108,26 @@ namespace ChessExerciseManagement.Exercises {
             sb.AppendLine();
 
             File.AppendAllText(indexPath, sb.ToString());
+        }
+
+        public static void SaveFens(List<string> fens, List<string> keywords) {
+            if (!Directory.Exists(fenFolderPath)) {
+                Directory.CreateDirectory(fenFolderPath);
+            }
+
+            var rnd = new Random();
+
+            foreach (var fen in fens) {
+                string filePath;
+                do {
+                    var num = rnd.Next();
+                    filePath = fenFolderPath + "\\" + num.ToString();
+                } while (File.Exists(filePath));
+
+                File.WriteAllText(filePath, fen);
+                AddFile(filePath, keywords);
+                ExerciseManager.AddExercise(filePath, keywords);
+            }
         }
     }
 }

@@ -64,14 +64,35 @@ namespace ChessExerciseManagement.Models {
             var fenComps = fen.Split(' ');
             LoadPosition(fenComps[0]);
 
-            WhosTurn = fenComps[1].Equals("w") ? PlayerAffiliation.White : PlayerAffiliation.Black;
-            White.MayCastleShort = fenComps[2].Contains("K");
-            White.MayCastleLong = fenComps[2].Contains("Q");
-            Black.MayCastleShort = fenComps[2].Contains("k");
-            White.MayCastleLong = fenComps[2].Contains("q");
+            if (fenComps.Length > 1) {
+                WhosTurn = fenComps[1].Equals("w") ? PlayerAffiliation.White : PlayerAffiliation.Black;
+            } else {
+                WhosTurn = PlayerAffiliation.White;
+            }
 
-            HalfmovesSinceLastCaptureOrPawn = int.Parse(fenComps[4]);
-            Movecounter = int.Parse(fenComps[5]);
+            if (fenComps.Length > 2) {
+                White.MayCastleShort = fenComps[2].Contains("K");
+                White.MayCastleLong = fenComps[2].Contains("Q");
+                Black.MayCastleShort = fenComps[2].Contains("k");
+                White.MayCastleLong = fenComps[2].Contains("q");
+            } else {
+                White.MayCastleShort = false;
+                White.MayCastleLong = false;
+                Black.MayCastleShort = false;
+                White.MayCastleLong = false;
+            }
+
+            if (fenComps.Length > 4) {
+                HalfmovesSinceLastCaptureOrPawn = int.Parse(fenComps[4]);
+            } else {
+                HalfmovesSinceLastCaptureOrPawn = 0;
+            }
+
+            if (fenComps.Length > 5) {
+                Movecounter = int.Parse(fenComps[5]);
+            } else {
+                Movecounter = 1;
+            }
         }
 
         private void SetupPlayer() {

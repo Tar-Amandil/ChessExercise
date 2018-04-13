@@ -8,8 +8,8 @@
         Title="FenWindow" Height="371.5" Width="500" ResizeMode="NoResize">
     <Grid>
         <TextBox x:Name="FenTextBox" Text="" TextWrapping="Wrap" Margin="10,10,10,35" AcceptsReturn="True"/>
-        <Button x:Name="CheckFenButton" Content="Check FEN" HorizontalAlignment="Left" Margin="10,0,0,10" Width="154" Click="CheckFenButton_Click" Height="20" VerticalAlignment="Bottom"/>
-        <Button x:Name="SaveFenButton" Content="Save FEN" HorizontalAlignment="Left" Margin="169,0,0,10" Width="154" Click="SaveFenButton_Click" Height="20" VerticalAlignment="Bottom"/>
-        <Button x:Name="SaveExerciseButton" Content="Save as Exercise" Margin="328,0,10,10" Click="SaveExerciseButton_Click" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="CheckFenButton" Content="Check FENs" HorizontalAlignment="Left" Margin="10,0,0,10" Width="154" Click="CheckFenButton_Click" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="SaveFenButton" Content="Save FENs" HorizontalAlignment="Left" Margin="169,0,0,10" Width="154" Click="SaveFenButton_Click" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="SaveExerciseButton" Content="Save as Exercises" Margin="328,0,10,10" Click="SaveExerciseButton_Click" Height="20" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

@@ -1,9 +1,10 @@
-﻿using ChessExerciseManagement.Exercises;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows;
+using System.Linq;
+using ChessExerciseManagement.Exercises;
 
 namespace ChessExerciseManagement.UI {
     public partial class FenWindow : Window {
@@ -44,7 +45,7 @@ namespace ChessExerciseManagement.UI {
                 return false;
             }
 
-            var lines = fen.Split(new[] { '\\', '_', '-' });
+            var lines = fen.Split(new[] { '\\', '_', '-', '/' });
             var positionCode = lines[0];
 
             var listOfLegalChars = new List<char>() {
@@ -57,6 +58,21 @@ namespace ChessExerciseManagement.UI {
                     MessageBox.Show("The character " + character + " is not allowed in this notation.");
                     return false;
                 }
+            }
+
+            var emptyFieldList = ExtractNumbersOfJonasFen(fen);
+            var sum = emptyFieldList.Aggregate((a, b) => a + b);
+            var letters = CountLetters(emptyFieldList);
+            var emptyFields = sum - letters;
+
+            var len = 0;
+
+            foreach (var line in lines) {
+                len += line.Length;
+            }
+
+            if (len + emptyFields != 64) {
+                return false;
             }
 
             return true;
@@ -72,14 +88,48 @@ namespace ChessExerciseManagement.UI {
             byte dummyVal;
             foreach (var character in positionCode) {
                 var flag = byte.TryParse(character.ToString(), out dummyVal);
-                if(flag) {
-                    sb.Append()
+                if (flag) {
+                    sb.Append(character);
+                } else if (sb.Length != 0) {
+                    var numStr = sb.ToString();
+                    sb.Clear();
+                    var num = int.Parse(numStr);
+                    listOfNumbers.Add(num);
                 }
-
             }
 
+            if (sb.Length != 0) {
+                var numStr = sb.ToString();
+                sb.Clear();
+                var num = int.Parse(numStr);
+                listOfNumbers.Add(num);
+            }
 
             return listOfNumbers;
+        }
+
+        private int CountLetters(List<int> numbers) {
+            if (numbers == null || numbers.Count == 0) {
+                return 0;
+            }
+
+            var numberOfLetters = 0;
+
+            foreach (var num in numbers) {
+                var tmpNum = num;
+
+                if (tmpNum < 0) {
+                    tmpNum = -tmpNum;
+                    numberOfLetters++;
+                }
+
+                do {
+                    numberOfLetters++;
+                    tmpNum = tmpNum / 10;
+                } while (tmpNum > 0);
+            }
+
+            return numberOfLetters;
         }
 
         private void SaveFenButton_Click(object sender, RoutedEventArgs e) {
@@ -93,22 +143,22 @@ namespace ChessExerciseManagement.UI {
         }
 
         private void SaveExerciseButton_Click(object sender, RoutedEventArgs e) {
-            var saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "FEN files (*.fen)|*.fen";
+            var input = FenTextBox.Text ?? string.Empty;
+            var lines = input.Split('\n', '\r').ToList();
 
-            if (saveFileDialog.ShowDialog() == true) {
-                var fen = FenTextBox.Text;
-                var filename = saveFileDialog.FileName;
-                File.WriteAllText(filename, fen);
-
-                var keywordWindow = new KeywordWindow();
-                keywordWindow.ShowDialog();
-
-                var keywords = keywordWindow.Keywords;
-
-                Index.AddFile(filename, keywords);
-                ExerciseManager.AddExercise(filename, keywords);
+            var validLines = new List<string>();
+            foreach (var line in lines) {
+                if (CheckJonasFen(line)) {
+                    validLines.Add(line);
+                }
             }
+
+            var keywordWindow = new KeywordWindow();
+            keywordWindow.ShowDialog();
+
+            var keywords = keywordWindow.Keywords;
+
+            Index.SaveFens(validLines, keywords);
         }
     }
 }
