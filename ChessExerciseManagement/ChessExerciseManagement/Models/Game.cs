@@ -146,30 +146,7 @@ namespace ChessExerciseManagement.Models {
         }
 
         private void LoadPosition(string fen) {
-            var ranks = fen.Split('/');
-            var fieldcodes = new char[8, 8];
-
-            for (var y = 0; y < 8; y++) {
-                var pointer = 0;
-                for (var x = 0; x < 8; x++) {
-
-                    var c = ranks[7 - y][pointer];
-                    byte b;
-
-                    if (byte.TryParse(c.ToString(), out b)) {
-                        var oldX = x;
-                        for (var i = oldX; i < b + oldX; i++) {
-                            fieldcodes[i, y] = '-';
-                            x++;
-                        }
-                        x--;
-                        pointer++;
-                    } else {
-                        fieldcodes[x, y] = c;
-                        pointer++;
-                    }
-                }
-            }
+            var fieldcodes = GenFieldCodes(fen);
 
             for (var y = 0; y < 8; y++) {
                 for (var x = 0; x < 8; x++) {
@@ -209,6 +186,96 @@ namespace ChessExerciseManagement.Models {
             }
 
 
+        }
+
+        private char[,] GenFieldCodes(string fen) {
+            var ranks = fen.Split('/');
+
+            if (ranks.Length == 8) {
+                return GetFieldCodesNormalFen(ranks);
+            }
+
+            var breakSymbols = new[] { '\\', '_', '-', '/' };
+            var lines = fen.Split(breakSymbols);
+
+            var listOfLegalChars = new List<char>() {
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'r', 'R', 'n', 'N', 'b', 'B', 'q', 'Q', 'k', 'K', 'p', 'P'
+            };
+
+            var tmpCounter = 0;
+            var sb = new StringBuilder(64);
+
+            foreach (var c in lines[0]) {
+                if (!listOfLegalChars.Contains(c)) {
+                    continue;
+                }
+
+                int dummy;
+                if (int.TryParse(c.ToString(), out dummy)) {
+                    tmpCounter *= 10;
+                    tmpCounter += dummy;
+                } else {
+                    if (tmpCounter != 0) {
+                        for (var i = 0; i < tmpCounter; i++) {
+                            sb.Append('-');
+                        }
+
+                        tmpCounter = 0;
+                    }
+
+                    sb.Append(c);
+                }
+            }
+
+            if (tmpCounter != 0) {
+                for (var i = 0; i < tmpCounter; i++) {
+                    sb.Append('-');
+                }
+
+                tmpCounter = 0;
+            }
+
+            var code = sb.ToString();
+            var fieldcodes = new char[8, 8];
+
+            for (var y = 0; y < 8; y++) {
+                for (var x = 0; x < 8; x++) {
+                    var idx = (7 - y) * 8 + x;
+                    fieldcodes[x, y] = code[idx];
+                }
+            }
+
+
+            return fieldcodes;
+        }
+
+        private char[,] GetFieldCodesNormalFen(string[] ranks) {
+            var fieldcodes = new char[8, 8];
+
+            for (var y = 0; y < 8; y++) {
+                var pointer = 0;
+                for (var x = 0; x < 8; x++) {
+
+                    var c = ranks[7 - y][pointer];
+                    byte b;
+
+                    if (byte.TryParse(c.ToString(), out b)) {
+                        var oldX = x;
+                        for (var i = oldX; i < b + oldX; i++) {
+                            fieldcodes[i, y] = '-';
+                            x++;
+                        }
+                        x--;
+                        pointer++;
+                    } else {
+                        fieldcodes[x, y] = c;
+                        pointer++;
+                    }
+                }
+            }
+
+            return fieldcodes;
         }
 
         private void AddWhitePieces() {

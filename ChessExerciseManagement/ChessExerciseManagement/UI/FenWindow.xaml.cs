@@ -14,7 +14,7 @@ namespace ChessExerciseManagement.UI {
 
         private void CheckFenButton_Click(object sender, RoutedEventArgs e) {
             var input = FenTextBox.Text ?? string.Empty;
-            var lines = input.Split('\n');
+            var lines = input.Split(new[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
 
             var listOfIllegalFens = new List<int>();
 
@@ -66,10 +66,7 @@ namespace ChessExerciseManagement.UI {
             var emptyFields = sum - letters;
 
             var len = 0;
-
-            foreach (var line in lines) {
-                len += line.Length;
-            }
+            len += lines[0].Length;
 
             if (len + emptyFields != 64) {
                 return false;
@@ -144,7 +141,7 @@ namespace ChessExerciseManagement.UI {
 
         private void SaveExerciseButton_Click(object sender, RoutedEventArgs e) {
             var input = FenTextBox.Text ?? string.Empty;
-            var lines = input.Split('\n', '\r').ToList();
+            var lines = input.Split(new[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.RemoveEmptyEntries).ToList();
 
             var validLines = new List<string>();
             foreach (var line in lines) {
