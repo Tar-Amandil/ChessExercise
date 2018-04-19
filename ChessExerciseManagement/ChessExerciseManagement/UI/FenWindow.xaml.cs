@@ -151,11 +151,12 @@ namespace ChessExerciseManagement.UI {
             }
 
             var keywordWindow = new KeywordWindow();
-            keywordWindow.ShowDialog();
+            var res = keywordWindow.ShowDialog();
 
-            var keywords = keywordWindow.Keywords;
-
-            Index.SaveFens(validLines, keywords);
+            if (res.HasValue && res.Value) {
+                var keywords = keywordWindow.Keywords;
+                Index.SaveFens(validLines, keywords);
+            }
         }
     }
 }

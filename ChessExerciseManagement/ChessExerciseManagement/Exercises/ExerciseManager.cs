@@ -16,6 +16,14 @@ namespace ChessExerciseManagement.Exercises {
             }
         }
 
+        public static List<string> Keys {
+            get {
+                var keys = m_exercises.Keys.ToList();
+                keys.RemoveAll(x => x.Length == 0);
+                return keys;
+            }
+        }
+
         public static IEnumerable<string> Filter(List<string> keywords) {
             if (keywords == null) {
                 return new List<string>();

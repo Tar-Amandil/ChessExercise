@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:ChessExerciseManagement"
         xmlns:u="clr-namespace:ChessExerciseManagement.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="128" Width="337" ResizeMode="NoResize">
+        Title="MainWindow" Height="151" Width="337" ResizeMode="NoResize">
     <Grid>
         <Button x:Name="MoveButton" Content="Enter Moves" Margin="10,10,10,0" VerticalAlignment="Top" Click="MoveButton_Click" Grid.ColumnSpan="2"/>
         <Button x:Name="FenButton" Content="Enter FENs" Margin="10,35,10,0" VerticalAlignment="Top" Click="FenButton_Click" Grid.ColumnSpan="2"/>
         <Button x:Name="ExploreButton" Content="Explore Database" Margin="10,60,10,0" VerticalAlignment="Top" Click="ExploreButton_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="SettingsButton" Content="Settings" Margin="10,85,10,0" VerticalAlignment="Top" Click="SettingsButton_Click" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

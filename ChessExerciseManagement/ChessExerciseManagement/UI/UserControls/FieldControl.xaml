@@ -7,6 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="200" BorderBrush="Black" BorderThickness="1">
     <Grid Name="grid" Background="#00000000" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-        <Image Name="imageViewer" />
+        <Image Name="imageViewer" Margin="10"/>
+        <Label x:Name="ColumLabel" FontSize="18pt" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Width="40" Margin="0,-5,0,0"/>
+        <Label x:Name="RowLabel" Foreground="#FFFFFFFF" FontSize="18pt" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="auto" Width="40" Margin="0,0,-15,-2"/>
     </Grid>
+
 </UserControl>

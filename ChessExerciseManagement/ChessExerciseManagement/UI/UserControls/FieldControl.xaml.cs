@@ -5,6 +5,7 @@ using System.Windows.Controls;
 
 using ChessExerciseManagement.Models;
 using ChessExerciseManagement.Events;
+using ChessExerciseManagement.Base;
 
 namespace ChessExerciseManagement.UI.UserControls {
     public partial class FieldControl : UserControl {
@@ -25,6 +26,25 @@ namespace ChessExerciseManagement.UI.UserControls {
                 Background = Brushes.AliceBlue;
             } else {
                 Background = Brushes.RosyBrown;
+            }
+
+            if (field.X == 0) {
+                ColumLabel.Content = field.Y + 1;
+                if (field.X % 2 != field.Y % 2) {
+                    ColumLabel.Foreground = Brushes.AliceBlue;
+                } else {
+                    ColumLabel.Foreground = Brushes.RosyBrown;
+                }
+            }
+
+            if (field.Y == 0) {
+                char a = 'a';
+                RowLabel.Content = a.Load(field.X);
+                if (field.X % 2 != field.Y % 2) {
+                    RowLabel.Foreground = Brushes.AliceBlue;
+                } else {
+                    RowLabel.Foreground = Brushes.RosyBrown;
+                }
             }
 
             imageViewer.Source = field.Piece?.GetImage();

@@ -22,5 +22,10 @@ namespace ChessExerciseManagement {
             var exploreWindow = new ExploreWindow();
             exploreWindow.ShowDialog();
         }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e) {
+            var settingsWindow = new SettingsWindow();
+            settingsWindow.ShowDialog();
+        }
     }
 }

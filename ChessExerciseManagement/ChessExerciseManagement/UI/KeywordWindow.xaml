@@ -5,10 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChessExerciseManagement.UI"
         mc:Ignorable="d"
-        Title="KeywordWindow" Height="305.72" Width="300">
+        Loaded="Window_Loaded"
+        Title="KeywordWindow" Height="305.72" Width="574">
     <Grid>
         <Button x:Name="OkButton" Content="Ok" HorizontalAlignment="Left" Margin="10,239,0,0" VerticalAlignment="Top" Width="263" Click="OkButton_Click"/>
         <TextBox x:Name="KeywordTextBox" AcceptsReturn="True" HorizontalAlignment="Left" Height="224" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="263"/>
+        <TextBox x:Name="UsedkeywordTextBox" MouseDoubleClick="UsedkeywordTextBox_MouseDoubleClick" AcceptsReturn="False" HorizontalAlignment="Left" Height="217" Margin="291,42,0,0" TextWrapping="Wrap" Text="" IsReadOnly="True" VerticalAlignment="Top" Width="263"/>
+        <Label x:Name="UsedKeywordText" Content="Already used keywords:" HorizontalAlignment="Left" Margin="291,10,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
