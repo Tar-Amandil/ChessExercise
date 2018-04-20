@@ -7,7 +7,6 @@ namespace ChessExerciseManagement.UI {
             InitializeComponent();
 
             FenFolderTextBox.Text = Index.FenFolderPath;
-            FolderTextBox.Text = Index.FolderPath;
             FileTextBox.Text = Index.FilePath;
         }
 

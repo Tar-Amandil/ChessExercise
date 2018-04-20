@@ -5,21 +5,9 @@ using System.Text;
 
 namespace ChessExerciseManagement.Exercises {
     public static class Index {
-        private static string m_folderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\ChessApplication";
         private static string m_filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\ChessApplication\index.txt";
         private static string m_fenFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\ChessApplication\Fen";
         private static string indexPath;
-
-        public static string FolderPath {
-            get {
-                return m_folderPath;
-            }
-            set {
-                if (Directory.Exists(value)) {
-                    m_folderPath = value;
-                }
-            }
-        }
 
         public static string FilePath {
             get {
@@ -52,8 +40,9 @@ namespace ChessExerciseManagement.Exercises {
         }
 
         private static void FindIndexPath() {
-            if (!Directory.Exists(m_folderPath)) {
-                Directory.CreateDirectory(m_folderPath);
+            var folderPath = Path.GetDirectoryName(m_filePath);
+            if (!Directory.Exists(folderPath)) {
+                Directory.CreateDirectory(folderPath);
             }
 
             if (!File.Exists(m_filePath)) {

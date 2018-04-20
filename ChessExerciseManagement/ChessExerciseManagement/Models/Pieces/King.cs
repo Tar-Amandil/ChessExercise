@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Media.Imaging;
+using System.Drawing;
 using ChessExerciseManagement.Controls;
 
 namespace ChessExerciseManagement.Models.Pieces {
@@ -22,7 +22,7 @@ namespace ChessExerciseManagement.Models.Pieces {
             return 'X';
         }
 
-        public override BitmapImage GetImage() {
+        public override Bitmap GetImage() {
             switch (Affiliation) {
                 case PlayerAffiliation.Black:
                     return images[8];

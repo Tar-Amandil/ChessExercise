@@ -1,9 +1,13 @@
 ﻿using ChessExerciseManagement.Base;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace ChessExerciseManagement.Models {
     public class Board : BaseClass {
+        private static Color whiteColor = Color.White;
+        private static Color blackColor = Color.LightGray;
+
         public Field[,] Fields {
             private set;
             get;
@@ -127,6 +131,43 @@ namespace ChessExerciseManagement.Models {
             }
 
             return string.Empty;
+        }
+
+        private Image[,] GetImages() {
+            var images = new Image[8, 8];
+
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    var flag = i % 2 == j % 2;
+                    var col = flag ? whiteColor : blackColor;
+                    var field = Fields[i, j];
+
+                    var image = new Bitmap(100, 100);
+
+                    using (var graphics = Graphics.FromImage(image)) {
+                        graphics.Clear(col);
+                        graphics.DrawImage(field.Piece?.GetImage(), new PointF(0, 0));
+                    }
+                }
+            }
+
+
+            return images;
+        }
+
+        private Bitmap MergePictures(Image[,] images) {
+            var outputBitmap = new Bitmap(800, 800, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            using (var graphics = Graphics.FromImage(outputBitmap)) {
+                for (var i = 0; i < 8; i++) {
+                    for (var j = 0; j < 8; j++) {
+                        var img = images[i, j];
+
+                        graphics.DrawImage(img, new PointF(100 * i, 100 * j));
+                    }
+                }
+            }
+
+            return outputBitmap;
         }
     }
 }

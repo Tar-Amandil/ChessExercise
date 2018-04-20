@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="Base\BaseClass.cs" />
     <Compile Include="Base\Extensions.cs" />
+    <Compile Include="Base\Helper.cs" />
     <Compile Include="Controls\MoveController.cs" />
     <Compile Include="Events\CaptureEvent.cs" />
     <Compile Include="Events\PieceEvent.cs" />

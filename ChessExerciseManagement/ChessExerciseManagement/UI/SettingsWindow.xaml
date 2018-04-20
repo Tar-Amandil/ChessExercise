@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChessExerciseManagement.UI"
         mc:Ignorable="d"
-        Title="SettingsWindow" Height="281.568" Width="549.788">
+        Title="SettingsWindow" Height="281" Width="549">
     <Grid>
         <Label x:Name="FenFolderLabel" Content="Folder to store the Fens:" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="FenFolderTextBox" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="10,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="512"/>

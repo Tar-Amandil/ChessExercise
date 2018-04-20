@@ -47,7 +47,7 @@ namespace ChessExerciseManagement.UI.UserControls {
                 }
             }
 
-            imageViewer.Source = field.Piece?.GetImage();
+            imageViewer.Source = Helper.Convert(field.Piece?.GetImage());
         }
 
         public void SetBoardControl(BoardControl boardControl) {
@@ -62,7 +62,7 @@ namespace ChessExerciseManagement.UI.UserControls {
             if (e.Piece == null) {
                 imageViewer.Source = null;
             } else {
-                imageViewer.Source = e.Piece.GetImage();
+                imageViewer.Source = Helper.Convert(e.Piece.GetImage());
             }
         }
 

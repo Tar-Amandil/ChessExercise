@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using ChessExerciseManagement.Controls;
+using System.Drawing;
 
 namespace ChessExerciseManagement.Models.Pieces {
     public class Bishop : Piece {
@@ -22,7 +23,7 @@ namespace ChessExerciseManagement.Models.Pieces {
             return 'X';
         }
 
-        public override BitmapImage GetImage() {
+        public override Bitmap GetImage() {
             switch (Affiliation) {
                 case PlayerAffiliation.Black:
                     return images[4];
