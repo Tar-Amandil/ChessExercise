@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800"
              Height="800" Width="800">
-    <Grid>
+    <Grid x:Name="AllGrid" >
         <local:FieldControl x:Name="f07" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Margin="000,0,0,0"/>
         <local:FieldControl x:Name="f17" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Margin="100,0,0,0"/>
         <local:FieldControl x:Name="f27" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Margin="200,0,0,0"/>

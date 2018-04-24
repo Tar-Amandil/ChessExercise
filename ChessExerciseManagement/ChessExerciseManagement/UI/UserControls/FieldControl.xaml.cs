@@ -78,7 +78,6 @@ namespace ChessExerciseManagement.UI.UserControls {
                 var markedPiece = m_boardControl.MarkedFieldControl.m_field.Piece;
                 markedPiece.SetField(m_field);
 
-
                 foreach (var fieldControl in markedFieldControls) {
                     fieldControl.BorderBrush = Brushes.Black;
                     fieldControl.BorderThickness = new Thickness(1, 1, 1, 1);

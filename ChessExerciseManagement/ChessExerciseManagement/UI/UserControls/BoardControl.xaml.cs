@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 using ChessExerciseManagement.Models;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace ChessExerciseManagement.UI.UserControls {
 
         public void SetReadonly(bool read) {
             m_readonly = read;
-            foreach(var contr in Controls) {
+            foreach (var contr in Controls) {
                 contr.SetReadonly(read);
             }
         }

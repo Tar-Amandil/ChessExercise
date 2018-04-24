@@ -1,7 +1,6 @@
 ﻿using ChessExerciseManagement.Exercises;
 using ChessExerciseManagement.Models;
 using Microsoft.Win32;
-using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;

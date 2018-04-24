@@ -1,6 +1,9 @@
 ﻿using ChessExerciseManagement.Exercises;
+using ChessExerciseManagement.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows;
 
@@ -8,6 +11,9 @@ namespace ChessExerciseManagement.UI {
     public partial class ExploreWindow : Window {
         public ExploreWindow() {
             InitializeComponent();
+            Boardcontrol.SetReadonly(true);
+            var game = new Game("64-w");
+            Boardcontrol.Board = game.Board;
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e) {
@@ -64,7 +70,22 @@ namespace ChessExerciseManagement.UI {
         }
 
         private void ExportButton_Click(object sender, RoutedEventArgs e) {
+            var images = new List<Bitmap>();
+            foreach (string item in ExerciseListBox.SelectedItems) {
+                var fen = File.ReadAllText(item);
+                var game = new Game(fen);
+                var board = game.Board;
+                images.Add(board.GetImage());
+            }
 
+            var rnd = new Random();
+            var filenames = new List<string>();
+
+            foreach (var img in images) {
+                var filename = @"C:\Users\fczappa\Desktop\" + rnd.Next() + ".png";
+                img.Save(filename);
+                filenames.Add(filename);
+            }
         }
     }
 }

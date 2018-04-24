@@ -133,6 +133,11 @@ namespace ChessExerciseManagement.Models {
             return string.Empty;
         }
 
+        public Bitmap GetImage() {
+            var images = GetImages();
+            return MergePictures(images);
+        }
+
         private Image[,] GetImages() {
             var images = new Image[8, 8];
 
@@ -146,8 +151,14 @@ namespace ChessExerciseManagement.Models {
 
                     using (var graphics = Graphics.FromImage(image)) {
                         graphics.Clear(col);
-                        graphics.DrawImage(field.Piece?.GetBitmap(), new PointF(0, 0));
+
+                        var val = field.Piece?.GetBitmap();
+                        if (val != null) {
+                            graphics.DrawImage(val, new Rectangle(0, 0, 100, 100), new Rectangle(0, 0, 200, 200), GraphicsUnit.Pixel);
+                        }                        
                     }
+
+                    images[i, j] = image;
                 }
             }
 
@@ -160,7 +171,10 @@ namespace ChessExerciseManagement.Models {
             using (var graphics = Graphics.FromImage(outputBitmap)) {
                 for (var i = 0; i < 8; i++) {
                     for (var j = 0; j < 8; j++) {
-                        var img = images[i, j];
+                        var img = images[i, 7-j];
+                        if (img == null) {
+                            continue;
+                        }
 
                         graphics.DrawImage(img, new PointF(100 * i, 100 * j));
                     }

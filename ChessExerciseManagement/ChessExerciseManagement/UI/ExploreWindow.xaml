@@ -1,20 +1,24 @@
-﻿<Window x:Class="ChessExerciseManagement.UI.ExploreWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChessExerciseManagement.UI"
+        xmlns:UserControls="clr-namespace:ChessExerciseManagement.UI.UserControls" x:Class="ChessExerciseManagement.UI.ExploreWindow"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="ExploreWindow" Height="600" Width="800" MinWidth="400" MinHeight="300">
+        Title="ExploreWindow" Height="600" Width="1349" MinWidth="400" MinHeight="300">
     <Grid>
         <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="140" Click="SearchButton_Click"/>
         <TextBox x:Name="UsedkeywordTextBox" MouseDoubleClick="UsedkeywordTextBox_MouseDoubleClick" AcceptsReturn="False" HorizontalAlignment="Left" Height="265" Margin="10,31,0,0" TextWrapping="Wrap" Text="" IsReadOnly="True" VerticalAlignment="Top" Width="140"/>
         <Label x:Name="UsedKeywordText" Content="Already used keywords:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top"/>
 
         <TextBox x:Name="KeywordTextBox" AcceptsReturn="True" HorizontalAlignment="Left" Margin="10,301,0,35" TextWrapping="Wrap" Text="" Width="140"/>
-        <ListBox x:Name="ExerciseListBox" Margin="155,10,10,35" SelectionMode="Multiple" MouseDoubleClick="ExerciseListBox_MouseDoubleClick" />
+        <ListBox x:Name="ExerciseListBox" Margin="155,10,559,35" SelectionMode="Multiple" MouseDoubleClick="ExerciseListBox_MouseDoubleClick" />
         <Button x:Name="ExportButton" Content="Export" HorizontalAlignment="Left" Margin="642,0,0,10" VerticalAlignment="Bottom" Width="140" Click="ExportButton_Click"/>
 
+        <Viewbox StretchDirection="Both" Stretch="UniformToFill" Height="400" Width="400" Margin="838,53,103,116">
+            <UserControls:BoardControl x:Name="Boardcontrol" Height="800" Width="800"/>
+        </Viewbox>
     </Grid>
 </Window>
