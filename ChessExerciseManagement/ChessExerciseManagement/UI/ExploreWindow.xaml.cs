@@ -62,5 +62,9 @@ namespace ChessExerciseManagement.UI {
                 KeywordTextBox.Text += item;
             }
         }
+
+        private void ExportButton_Click(object sender, RoutedEventArgs e) {
+
+        }
     }
 }

@@ -58,7 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="Base\BaseClass.cs" />
     <Compile Include="Base\Extensions.cs" />
-    <Compile Include="Base\Helper.cs" />
+    <Compile Include="Base\PictureHelper.cs" />
     <Compile Include="Controls\MoveController.cs" />
     <Compile Include="Events\CaptureEvent.cs" />
     <Compile Include="Events\PieceEvent.cs" />

@@ -5,11 +5,10 @@ using ChessExerciseManagement.Base;
 using ChessExerciseManagement.Events;
 using ChessExerciseManagement.Models.Moves;
 using System.Drawing;
+using System.Windows.Media.Imaging;
 
 namespace ChessExerciseManagement.Models.Pieces {
     public abstract class Piece : BaseClass {
-        protected static Bitmap[] images;
-
         public PlayerAffiliation Affiliation {
             private set;
             get;
@@ -41,27 +40,21 @@ namespace ChessExerciseManagement.Models.Pieces {
         public event CaptureEventHandler Capture;
         public delegate void CaptureEventHandler(object sender, CaptureEvent e);
 
-        static Piece() {
-            images = new Bitmap[] {
-                new Bitmap(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\RookBlack.png"),
-                new Bitmap(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\RookWhite.png"),
-                new Bitmap(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\KnightBlack.png"),
-                new Bitmap(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\KnightWhite.png"),
-                new Bitmap(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\BishopBlack.png"),
-                new Bitmap(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\BishopWhite.png"),
-                new Bitmap(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\QueenBlack.png"),
-                new Bitmap(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\QueenWhite.png"),
-                new Bitmap(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\KingBlack.png"),
-                new Bitmap(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\KingWhite.png"),
-                new Bitmap(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\PawnBlack.png"),
-                new Bitmap(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\PawnWhite.png")
-            };
+        protected char m_key;
 
-            var pix = images[0].GetPixel(0, 0);
-            
-            foreach (var img in images) {
-                img.MakeTransparent();
-            }
+        static Piece() {
+            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\RookBlack.png", 'r');
+            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\RookWhite.png", 'R');
+            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\KnightBlack.png", 'n');
+            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\KnightWhite.png", 'N');
+            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\BishopBlack.png", 'b');
+            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\BishopWhite.png", 'B');
+            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\QueenBlack.png", 'q');
+            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\QueenWhite.png", 'Q');
+            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\KingBlack.png", 'k');
+            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\KingWhite.png", 'K');
+            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\PawnBlack.png", 'p');
+            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\PawnWhite.png", 'P');
         }
 
         public Piece(Player player, Board board, Field field) {
@@ -124,8 +117,16 @@ namespace ChessExerciseManagement.Models.Pieces {
 
         public abstract List<Field> GetAccessibleFields();
 
-        public abstract Bitmap GetImage();
+        public Bitmap GetBitmap() {
+            return PictureHelper.GetPictureHelper(m_key).Bitmap;
+        }
 
-        public abstract char GetFenChar();
+        public BitmapImage GetBitmapImage() {
+            return PictureHelper.GetPictureHelper(m_key).BitmapImage;
+        }
+
+        public char GetFenChar() {
+            return m_key;
+        }
     }
 }

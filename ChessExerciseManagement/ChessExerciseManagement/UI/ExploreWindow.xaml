@@ -13,7 +13,8 @@
         <Label x:Name="UsedKeywordText" Content="Already used keywords:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top"/>
 
         <TextBox x:Name="KeywordTextBox" AcceptsReturn="True" HorizontalAlignment="Left" Margin="10,301,0,35" TextWrapping="Wrap" Text="" Width="140"/>
-        <ListBox x:Name="ExerciseListBox" Margin="155,10,10,10" MouseDoubleClick="ExerciseListBox_MouseDoubleClick" />
+        <ListBox x:Name="ExerciseListBox" Margin="155,10,10,35" SelectionMode="Multiple" MouseDoubleClick="ExerciseListBox_MouseDoubleClick" />
+        <Button x:Name="ExportButton" Content="Export" HorizontalAlignment="Left" Margin="642,0,0,10" VerticalAlignment="Bottom" Width="140" Click="ExportButton_Click"/>
 
     </Grid>
 </Window>

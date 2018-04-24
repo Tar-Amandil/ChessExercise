@@ -146,7 +146,7 @@ namespace ChessExerciseManagement.Models {
 
                     using (var graphics = Graphics.FromImage(image)) {
                         graphics.Clear(col);
-                        graphics.DrawImage(field.Piece?.GetImage(), new PointF(0, 0));
+                        graphics.DrawImage(field.Piece?.GetBitmap(), new PointF(0, 0));
                     }
                 }
             }
