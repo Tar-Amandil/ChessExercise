@@ -65,6 +65,7 @@
     <Compile Include="Events\MoveEvent.cs" />
     <Compile Include="Exercises\ExerciseManager.cs" />
     <Compile Include="Exercises\Index.cs" />
+    <Compile Include="Exercises\TexGenerator.cs" />
     <Compile Include="Models\Moves\CaptureMove.cs" />
     <Compile Include="Models\Moves\CastleMove.cs" />
     <Compile Include="Models\FenMode.cs" />
