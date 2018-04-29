@@ -43,18 +43,20 @@ namespace ChessExerciseManagement.Models.Pieces {
         protected char m_key;
 
         static Piece() {
-            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\RookBlack.png", 'r');
-            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\RookWhite.png", 'R');
-            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\KnightBlack.png", 'n');
-            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\KnightWhite.png", 'N');
-            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\BishopBlack.png", 'b');
-            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\BishopWhite.png", 'B');
-            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\QueenBlack.png", 'q');
-            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\QueenWhite.png", 'Q');
-            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\KingBlack.png", 'k');
-            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\KingWhite.png", 'K');
-            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\PawnBlack.png", 'p');
-            PictureHelper.AddPicture(@"U:\ChessExercise\ChessExerciseManagement\ChessExerciseManagement\Images\PawnWhite.png", 'P');
+            var appPath = AppDomain.CurrentDomain.BaseDirectory + @"\Images\";
+
+            PictureHelper.AddPicture(appPath + @"RookBlack.png", 'r');
+            PictureHelper.AddPicture(appPath + @"RookWhite.png", 'R');
+            PictureHelper.AddPicture(appPath + @"KnightBlack.png", 'n');
+            PictureHelper.AddPicture(appPath + @"KnightWhite.png", 'N');
+            PictureHelper.AddPicture(appPath + @"BishopBlack.png", 'b');
+            PictureHelper.AddPicture(appPath + @"BishopWhite.png", 'B');
+            PictureHelper.AddPicture(appPath + @"QueenBlack.png", 'q');
+            PictureHelper.AddPicture(appPath + @"QueenWhite.png", 'Q');
+            PictureHelper.AddPicture(appPath + @"KingBlack.png", 'k');
+            PictureHelper.AddPicture(appPath + @"KingWhite.png", 'K');
+            PictureHelper.AddPicture(appPath + @"PawnBlack.png", 'p');
+            PictureHelper.AddPicture(appPath + @"PawnWhite.png", 'P');
         }
 
         public Piece(Player player, Board board, Field field) {
